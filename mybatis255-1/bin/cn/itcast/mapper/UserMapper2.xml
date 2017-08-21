@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace：整个MyBatis管理的映射文件中必须唯一 -->
+<mapper namespace="cn.itcast.mapper.UserMapper2">
+	<!-- sql -->
+	<!-- 根据id查询用户信息 -->
+	<select id="findUserById" parameterType="java.lang.Integer" resultType="cn.itcast.pojo.User">
+		SELECT
+			name, 
+			mobile, 
+			sex, 
+			age, 
+			address
+		FROM 
+			user 
+		WHERE
+			userId = #{userId}
+	</select>
+	
+	<!-- 根据用户名模糊查询用户信息 -->
+	<select id="findUserByUserName" parameterType="java.lang.String" resultType="cn.itcast.pojo.User">
+		SELECT
+		  u.userId,
+		  u.name,
+		  u.age,
+		  u.address
+		FROM USER u
+		WHERE u.name LIKE #{userName}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

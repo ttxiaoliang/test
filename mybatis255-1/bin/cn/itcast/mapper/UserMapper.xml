@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace：整个MyBatis管理的映射文件中必须唯一 -->
+<mapper namespace="user">
+	<!-- sql -->
+	<!-- 根据id查询用户信息 -->
+	<select id="selectUserById" parameterType="int" resultType="cn.itcast.pojo.User">
+		SELECT
+			name, 
+			mobile, 
+			sex, 
+			age, 
+			address
+		FROM 
+			user 
+		WHERE
+			userId = #{userId}
+	</select>
+	
+	<!-- 插入用户信息 -->
+	<insert id="insertUser" parameterType="cn.itcast.pojo.User">
+		<selectKey order="AFTER" keyProperty="userId" resultType="int">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	
+		INSERT INTO user 
+			(
+			name, 
+			mobile, 
+			sex, 
+			age, 
+			address
+			)
+			VALUES
+			( 
+			#{name}, 
+			#{mobile}, 
+			#{sex}, 
+			#{age}, 
+			#{address}
+			)
+	
+	</insert>
+	
+	<!-- 根据id更新用户信息 -->
+	<update id="updateUserById" parameterType="cn.itcast.pojo.User">
+		UPDATE user 
+		SET
+			name = #{name}, 
+			mobile = #{mobile}, 
+			sex = #{sex}, 
+			age = #{age}, 
+			address = #{address}
+		WHERE
+			userId = #{userId}
+	</update>
+	
+	<!-- 删除用户信息 -->
+	<delete id="deleteUserById" parameterType="int">
+		DELETE FROM user 
+		WHERE
+			userId = #{userId}
+	</delete>
+	
+	<!-- 根据用户名模糊查询用户信息 -->
+	<select id="selectUserByUserName" parameterType="String" resultType="cn.itcast.pojo.User">
+		SELECT
+		  u.userId,
+		  u.name,
+		  u.age,
+		  u.address
+		FROM USER u
+		WHERE u.name LIKE #{userName}
+	</select>
+
+	<!-- 根据用户名模糊查询用户信息 -->
+	<select id="selectUserByUserName2" parameterType="String" resultType="cn.itcast.pojo.User">
+		SELECT
+		  u.userId,
+		  u.name,
+		  u.age,
+		  u.address
+		FROM USER u
+		WHERE u.name LIKE '%${value}%'
+	</select>
+	
+	<!-- 用拼接符接收参数 -->
+	<select id="selectUserByUserName3" parameterType="String" resultType="cn.itcast.pojo.User">
+		select
+		  u.userId,
+		  u.name,
+		  u.age,
+		  u.address
+		from user u
+		WHERE u.name LIKE '${value}'
+	</select>
+	
+	
+	<!-- 用占位符接收参数 -->
+	<select id="selectUserByUserName4" parameterType="String" resultType="cn.itcast.pojo.User">
+		SELECT
+		  u.userId,
+		  u.name,
+		  u.age,
+		  u.address
+		FROM user u
+		WHERE u.name LIKE #{name}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>
